@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/*Обнуление*/
+*,*:before,*:after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+nav,footer,header,aside{display: block;}
+html,body{
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+/*--------------------*/
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.page {
+  color: #fff;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: linear-gradient(
+    135deg,
+    #191919,
+    #191919,
+    #1c0c30,
+    #191919,
+    #191919
+  );
+  background-size: 300% 300%;
+  animation: gradientFlow 8s ease infinite;
+}
+
+.nav-tab {
+  color: #6b6b6b;
+  transition: .3s;
+  padding-top: 2px;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.nav-tab-selected {
+  transition: .3s;
+  color: #fff;
+}
+
+.custom-range {
+  appearance: none;
+  width: 85%;
+  height: 10px;
+  background: #0061FF;
+  border-radius: 10px;
+  outline: none;
+}
