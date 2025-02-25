@@ -19,7 +19,15 @@ function App() {
   return (
     <div className="page">
       <Tabs className="mb-30">
-        <TabList className="flex justify-around z-100 w-full fixed bottom-6">
+        <TabList
+          className="flex justify-around z-100 w-full max-w-2xl mx-auto fixed bottom-0 left-0 right-0 pb-6 pt-2 rounded-lg"
+          style={{
+            backdropFilter: "blur(12px)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
+            background:
+              "linear-gradient(120deg, rgba(38, 38, 38, 1), rgba(38, 38, 38, 0.95))",
+          }}
+        >
           <Tab
             onClick={() => tg_haptic.impactOccurred("soft")}
             className="nav-tab"
