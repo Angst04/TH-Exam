@@ -9,7 +9,7 @@ export const Balance = () => {
   const tg_haptic = window.Telegram.WebApp.HapticFeedback;
 
   return (
-    <motion.div className="min-h-screen flex flex-col items-center justify-center gap-4 p-4 mb-10">
+    <motion.div className="min-h-screen flex flex-col items-center justify-center gap-4 p-4 mb-20">
       <motion.div
         className="relative rounded-2xl w-full max-w-2xl p-6 flex flex-col backdrop-blur-xl border"
         style={{

@@ -8,7 +8,7 @@ import { Input } from "../components/Input";
 export const Buy = () => {
   return (
     <motion.div
-      className="min-h-screen flex flex-col items-center justify-center gap-4 p-4"
+      className="min-h-screen flex flex-col items-center justify-center gap-4 p-4 mb-20"
     >
       <Header>Покупка мощности</Header>
 

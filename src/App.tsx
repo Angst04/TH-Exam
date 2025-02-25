@@ -18,7 +18,7 @@ function App() {
 
   return (
     <div className="page">
-      <Tabs className="mb-30">
+      <Tabs>
         <TabList
           className="flex justify-around z-100 w-full max-w-2xl mx-auto fixed bottom-0 left-0 right-0 pb-6 pt-2 rounded-lg"
           style={{
