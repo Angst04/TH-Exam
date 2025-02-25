@@ -3,7 +3,6 @@ import { CircleHelp, Calculator as CalcIcon } from "lucide-react";
 import { Card } from "../components/Card";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import ClickAwayListener from "react-click-away-listener";
 import { Calculator } from "../components/Calculator";
 
 interface User {
@@ -27,81 +26,105 @@ export const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center gap-6">
-      <div className="flex items-center">
-        <img className="h-14 w-14 rounded-full" src={user?.img} />
-        <p className="ml-3 text-2xl">
+    <motion.div className="min-h-screen flex flex-col items-center justify-center gap-6 p-4 pt-8">
+      <motion.div
+        className="flex items-center gap-4"
+        initial={{ y: -20 }}
+        animate={{ y: 0 }}
+      >
+        <motion.img
+          className="h-14 w-14 rounded-full border-2 border-gray-600/50"
+          src={user?.img}
+        />
+        <p className="text-2xl font-medium text-gray-100">
           {user?.name} {user?.last_name}
         </p>
+      </motion.div>
+
+      <div className="w-full max-w-md space-y-4">
+        <Card
+          img={
+            <motion.img
+              src="/img/icons/hash2cash.gif"
+              className="h-12 w-12 rounded-lg"
+              alt="coin"
+            />
+          }
+        >
+          <motion.p className="text-xl font-bold text-gray-100">0 THC</motion.p>
+          <motion.p className="text-sm text-gray-400">Ваш баланс</motion.p>
+        </Card>
+
+        <Card>
+          <motion.p className="text-xl font-bold text-blue-400">
+            $94023.89
+          </motion.p>
+          <motion.p className="text-sm text-gray-400">КУРС BITCOIN</motion.p>
+        </Card>
+
+        <Card>
+          <motion.p className="text-xl font-bold text-green-400">
+            0.0000000000 BTC
+          </motion.p>
+          <motion.p className="text-sm text-gray-400 mb-2">
+            Прибыль за 24 часа
+          </motion.p>
+          <motion.a
+            href="#"
+            className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+          >
+            Подробнее
+          </motion.a>
+        </Card>
       </div>
-      <Card
-        img={
-          <img
-            src="/img/icons/hash2cash.gif"
-            className="h-10 w-10"
-            alt="coin"
-          />
-        }
-      >
-        <p className="text-lg">0 THС</p>
-        <p className="text-sm">Ваш баланс</p>
-      </Card>
-      <Card>
-        <p className="text-lg">$94023.89</p>
-        <p className="text-sm">КУРС BITCOIN</p>
-      </Card>
-      <Card>
-        <p className="text-lg">0.0000000000 BTC</p>
-        <p className="text-sm opacity-50">Прибыль за 24 часа</p>
-        <a href="#" className="text-sm underline!">
-          Подробнее
-        </a>
-      </Card>
-      <div
-        onClick={() => {
-          setIsCalculatorOpen(true);
-          tg_haptic.impactOccurred("medium");
-        }}
-        className="bg-[#262626] w-90 py-3 rounded-full text-white text-xl cursor-pointer flex items-center justify-center gap-3 hover:brightness-90 transition duration-300"
-      >
-        <CalcIcon size={20} />
-        Калькулятор
-      </div>
-      <Button
-        className="bg-[#0061FF]!"
-        icon={
-          <img src="/img/icons/ton-icon.svg" alt="TON" className="w-6 h-6" />
-        }
-        text="Connect Wallet"
-      />
-      <a
-        className="underline! flex align-center justify-center gap-2"
+
+      <motion.div className="w-full max-w-md" whileHover={{ scale: 1.02 }}>
+        <div
+          onClick={() => {
+            setIsCalculatorOpen(true);
+            tg_haptic.impactOccurred("medium");
+          }}
+          className="bg-gray-800/50 backdrop-blur-sm py-4 rounded-xl text-gray-100 text-lg cursor-pointer flex items-center justify-center gap-3 hover:bg-gray-800/70 transition-colors border border-gray-700/30"
+        >
+          <CalcIcon size={20} className="text-blue-400" />
+          <span>Калькулятор</span>
+        </div>
+      </motion.div>
+
+      <motion.div className="w-full max-w-md">
+        <Button
+          className="w-full bg-blue-600/80 hover:bg-blue-600/90"
+          icon={
+            <motion.img
+              src="/img/icons/ton-icon.svg"
+              alt="TON"
+              className="w-6 h-6"
+            />
+          }
+          text="Connect Wallet"
+        />
+      </motion.div>
+
+      <motion.a
+        className="text-gray-400 hover:text-gray-300 transition-colors flex items-center gap-2"
         href="https://hash2cash.io/"
       >
-        <CircleHelp size={14} /> Как это работает?
-      </a>
+        <CircleHelp size={16} />
+        <span className="text-sm">Как это работает?</span>
+      </motion.a>
 
       <AnimatePresence>
         {isCalculatorOpen && (
-          <ClickAwayListener onClickAway={() => setIsCalculatorOpen(false)}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="rounded-lg bg-[#262626] flex flex-col items-center justify-center gap-4"
-              style={{
-                position: "absolute",
-                top: "10%",
-                width: "80%",
-                height: "65%",
-              }}
-            >
-              <Calculator />
-            </motion.div>
-          </ClickAwayListener>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="fixed inset-0 bg-gray-900/80 backdrop-blur-xl flex items-center justify-center p-4"
+          >
+            <Calculator onClose={() => setIsCalculatorOpen(false)} />
+          </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 };

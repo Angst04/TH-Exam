@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Card } from "./Card";
 import { motion } from "framer-motion";
+import { Header } from "./Header";
 
-export const Calculator = () => {
+export const Calculator = ({ onClose }: { onClose: () => void }) => {
   const tg_haptic = window.Telegram.WebApp.HapticFeedback;
 
   const [thcAmount, setThcAmount] = useState(28);
@@ -10,67 +11,107 @@ export const Calculator = () => {
 
   const usdtAmount = thcAmount * btcRate;
   const inAmount = thcAmount * btcRate * 12;
-  const btcAmount = thcAmount / btcRate;
+  const btcAmount = (thcAmount / btcRate).toFixed(8);
+
+  const handleChange = (value: number, type: "thc" | "btc") => {
+    tg_haptic.selectionChanged();
+    if (type === "thc") setThcAmount(value);
+    else setBtcRate(value);
+  };
 
   return (
-    <motion.div className="min-h-screen flex flex-col items-center justify-center gap-6">
-      <p className="text-2xl">Калькулятор доходности</p>
+    <motion.div
+      className="w-full max-w-md bg-gray-800/80 backdrop-blur-lg rounded-2xl p-6 border border-gray-700/30"
+      initial={{ scale: 0.9 }}
+      animate={{ scale: 1 }}
+    >
+      <div className="flex justify-between items-center mb-6">
+        <Header>Калькулятор доходности</Header>
 
-      <div
-        style={{
-          background: "linear-gradient(135deg, #262626, #5D6577)",
-          backgroundSize: "200% 200%",
-          animation: "gradientFlow 8s ease infinite",
-        }}
-        className="bg-white rounded-lg w-80 py-3 flex flex-col gap-4 pl-5"
-      >
-        <p className="text-lg">Ежемесячная прибыль 40%</p>
-        <p className="text-md">${usdtAmount}</p>
-        <p className="text-md">{btcAmount} BTC</p>
+        <motion.button
+          onClick={onClose}
+          className="text-gray-400 hover:text-gray-200 text-4xl"
+        >
+          ✕
+        </motion.button>
       </div>
 
-      <Card
-        img={
-          <img
-            src="/img/icons/hash2cash.gif"
-            className="h-10 w-10"
-            alt="coin"
-          />
-        }
-        className="w-80!"
+      <motion.div
+        className="bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl p-4 mb-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
       >
-        <p className="text-lg">Сумма вложений в монету:</p>
-        <p className="text-xl">${inAmount}</p>
+        <p className="text-gray-400 mb-2">Ежемесячная прибыль 40%</p>
+        <div className="flex justify-between items-center">
+          <p className="text-xl font-bold text-green-400">${usdtAmount}</p>
+          <p className="text-xl font-bold text-blue-400">{btcAmount} BTC</p>
+        </div>
+      </motion.div>
+
+      <Card className="mb-6">
+        <div className="space-y-2">
+          <p className="text-gray-400">Сумма вложений в монету:</p>
+          <motion.p
+            className="text-2xl font-bold text-purple-400"
+            key={inAmount}
+            initial={{ scale: 0.95 }}
+            animate={{ scale: 1 }}
+          >
+            ${inAmount}
+          </motion.p>
+        </div>
       </Card>
 
-      <div className="flex justify-between items-center flex-col gap-4 w-full">
-        <p className="text-md">Количество монет: {thcAmount} THC</p>
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={thcAmount}
-          onChange={(e) => {
-            setThcAmount(Number(e.target.value));
-            tg_haptic.selectionChanged();
-          }}
-          className="custom-range"
-        />
+      <div className="space-y-6">
+        <div className="space-y-4">
+          <div className="flex justify-between text-gray-400">
+            <span>Количество монет:</span>
+            <motion.span
+              className="font-medium text-gray-100"
+              key={thcAmount}
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+            >
+              {thcAmount} THC
+            </motion.span>
+          </div>
+          <motion.input
+            type="range"
+            min={0}
+            max={100}
+            value={thcAmount}
+            onChange={(e) => handleChange(Number(e.target.value), "thc")}
+            className="w-full range-thumb"
+            whileHover={{ scale: 1.02 }}
+          />
+        </div>
 
-        <p className="text-md">Курс BTC: ${btcRate}</p>
-        <input
-          type="range"
-          min={110000}
-          max={1000000}
-          value={btcRate}
-          onChange={(e) => {
-            setBtcRate(Number(e.target.value));
-            tg_haptic.selectionChanged();
-          }}
-          className="custom-range"
-        />
+        <div className="space-y-4">
+          <div className="flex justify-between text-gray-400">
+            <span>Курс BTC:</span>
+            <motion.span
+              className="font-medium text-gray-100"
+              key={btcRate}
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+            >
+              ${btcRate.toLocaleString()}
+            </motion.span>
+          </div>
+          <motion.input
+            type="range"
+            min={110000}
+            max={1000000}
+            value={btcRate}
+            onChange={(e) => handleChange(Number(e.target.value), "btc")}
+            className="w-full range-thumb"
+            whileHover={{ scale: 1.02 }}
+          />
+        </div>
 
-        <p>Электричество 0.08$/кВт</p>
+        <div className="text-center text-gray-400">
+          <p>Электричество 0.08$/кВт</p>
+        </div>
       </div>
     </motion.div>
   );

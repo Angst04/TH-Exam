@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     document.title = "TH Exam";
   }, []);
-  
+
   const tg = window.Telegram.WebApp;
   const tg_haptic = tg.HapticFeedback;
   tg.expand();
@@ -19,7 +19,23 @@ function App() {
   return (
     <div className="page">
       <Tabs>
-        <TabList className="flex justify-around absolute z-100 bottom-7 w-full border-t-1! rounded-lg pt-5 border-[#262626]!">
+        <TabPanel>
+          <Home />
+        </TabPanel>
+        <TabPanel>
+          <Balance />
+        </TabPanel>
+        <TabPanel>
+          <Buy />
+        </TabPanel>
+        <TabPanel>
+          <Settings />
+        </TabPanel>
+        <TabPanel>
+          <Top />
+        </TabPanel>
+
+        <TabList className="flex justify-around z-100 w-full fixed bottom-6">
           <Tab
             onClick={() => tg_haptic.impactOccurred("soft")}
             className="nav-tab"
@@ -61,22 +77,6 @@ function App() {
             <span>TOP</span>
           </Tab>
         </TabList>
-
-        <TabPanel>
-          <Home />
-        </TabPanel>
-        <TabPanel>
-          <Balance />
-        </TabPanel>
-        <TabPanel>
-          <Buy />
-        </TabPanel>
-        <TabPanel>
-          <Settings />
-        </TabPanel>
-        <TabPanel>
-          <Top />
-        </TabPanel>
       </Tabs>
     </div>
   );
