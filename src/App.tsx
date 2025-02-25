@@ -18,23 +18,7 @@ function App() {
 
   return (
     <div className="page">
-      <Tabs>
-        <TabPanel>
-          <Home />
-        </TabPanel>
-        <TabPanel>
-          <Balance />
-        </TabPanel>
-        <TabPanel>
-          <Buy />
-        </TabPanel>
-        <TabPanel>
-          <Settings />
-        </TabPanel>
-        <TabPanel>
-          <Top />
-        </TabPanel>
-
+      <Tabs className="mb-30">
         <TabList className="flex justify-around z-100 w-full fixed bottom-6">
           <Tab
             onClick={() => tg_haptic.impactOccurred("soft")}
@@ -77,6 +61,22 @@ function App() {
             <span>TOP</span>
           </Tab>
         </TabList>
+
+        <TabPanel>
+          <Home />
+        </TabPanel>
+        <TabPanel>
+          <Balance />
+        </TabPanel>
+        <TabPanel>
+          <Buy />
+        </TabPanel>
+        <TabPanel>
+          <Settings />
+        </TabPanel>
+        <TabPanel>
+          <Top />
+        </TabPanel>
       </Tabs>
     </div>
   );
