@@ -5,8 +5,13 @@ import { Balance } from "./pages/Balance";
 import { Buy } from "./pages/Buy";
 import { Settings } from "./pages/Settings";
 import { Top } from "./pages/Top";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    document.title = "TH Exam";
+  }, []);
+  
   const tg = window.Telegram.WebApp;
   const tg_haptic = tg.HapticFeedback;
   tg.expand();

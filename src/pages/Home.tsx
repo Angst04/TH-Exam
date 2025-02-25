@@ -20,8 +20,10 @@ export const Home = () => {
 
   useEffect(() => {
     tg.ready();
-    const { first_name, last_name, photo_url } = tg.initDataUnsafe.user;
-    setUser({ name: first_name, last_name: last_name || "", img: photo_url });
+    if (tg.initDataUnsafe.user) {
+      const { first_name, last_name, photo_url } = tg.initDataUnsafe.user;
+      setUser({ name: first_name, last_name: last_name || "", img: photo_url });
+    }
   }, []);
 
   return (
